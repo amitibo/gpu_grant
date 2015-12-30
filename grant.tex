@@ -70,7 +70,7 @@ finding the right
 feature space for the problem and the right classifier for the feature space is
 a complicated task that requires expertise.
 
-During the last years, Deep Learning (DL) proved to be the De-facto method for
+During the last years, Deep Learning (DL)~\cite{Bengio2009, LeCun2015} proved to be the De-facto method for
 many artificial intelligence tasks. One of the main advantages of DL is that
 it automatically learns the feature space. Thus the feature space is custom
 tailored for the specific problem.
@@ -187,29 +187,40 @@ enough for many applications.
 	\begin{tabular}{ | l | l | }
 		\hline
 		Stage 										& Time [ms] 	\\ \hline
-		Target Detection (CPU) 						& 200      		\\ \hline
-		Low Resolution Classification (GPU) 		& 10 			\\ \hline
-		High Resolution Classification (GPU)		& 10 			\\ \hline
-		Total 						 				& 220 			\\ \hline
+		Target Detection (CPU) 						& 183      		\\ \hline
+		Low Resolution Classification (GPU) 		& 7 			\\ \hline
+		High Resolution Classification (GPU)		& 15 			\\ \hline
+		Total 						 				& 215 			\\ \hline
 	\end{tabular}
 	\caption{Timing results of the Jetson TK1}
 	\label{tb:jetson1}
 \end{table}
-We will explore improvements of the current algorithm by testing different
-network architectures, e.g. merge of the detection and classification into a
-single network~\cite{long2014fully}. The target is detection at Real Time at
-high frame rates.
-
-Other tasks for which deep learning has been proven to be very effective are
-obstacle avoidance~\cite{hadsell2009learning, eigen2014depth, ross2013learning}.
+As can be seen, most of the time is spent in the target detection stage.
+Our goal is Real Time detection at video frame rate. Therefore we will
+explore methods of performing detection using a DL network~cite{Szegedy2013}. For
+example we will test merging the detection and classification stages into a
+single network~\cite{long2014fully}.
 
 \subsection{Demonstration system}
 
-% Description of the Ground System
-% Details of Next year Gannt.
+The developed algorithms will be tested on the Technion drone~\cref{fig:drone}. This
+project is developed as part of the Association for Unmanned Vehicle Systems International
+(AUVSI) Student Unmanned Air Systems (SUAS) Competition~\cite{AUVSI_competition}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{drone}
+	\caption{The Technion drone project.}
+	\label{fig:drone}
+\end{figure}
+The Jetson TK will be deployed on-board the drone as part of the payload. It will process
+images captured by the payload camera in Real Time. Among its tasks will be the
+detection and classification of targets and humans.
 
 \subsection{Extensions}
 
+Other tasks for which deep learning has been proven to be very effective are
+obstacle avoidance~\cite{hadsell2009learning, eigen2014depth, ross2013learning}.
+This is the `Holy Grail' of UAS. 
 
 \section{Budget Plan}
 
@@ -218,15 +229,15 @@ obstacle avoidance~\cite{hadsell2009learning, eigen2014depth, ross2013learning}.
 		\hline
 				& Item 											& Budget (NIS) 	\\ \hline
 		1		& MSc Student 									& 20,000    	\\ \hline
-		2		& 1 global shutter machine vision camera 		& 20,000 		\\ \hline
+		2		& 1 global shutter machine vision camera 		& 25,000 		\\ \hline
 		3 		& 1 computer and accessories 					& 10,000 		\\ \hline
 		4 		& 4 GPU Nvidia Jetson TX1	 					& 12,000 		\\ \hline
 		5 		& Operating expenses (Flight tests) 			& 10,000 		\\ \hline
 		6 		& Supplies and publication	 					& 8,000 		\\ \hline
 		7 		& Transportation and communication				& 5,000 		\\ \hline
-		8 		& Students travel 								& 10,000 		\\ \hline
+		8 		& Students travel 								& 20,000 		\\ \hline
 		9 		& Laboratory staff (engineers \& technicians)	& 20,000 		\\ \hline
-		Total 	&  							 					& 115,000 		\\ \hline
+		Total 	&  							 					& 130,000 		\\ \hline
 	\end{tabular}
 \end{center}
 
