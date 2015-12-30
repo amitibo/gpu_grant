@@ -8,9 +8,8 @@
 \usepackage{url}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
-\title{Automatic Target Detection and Classification \\
-  Deep Learning Course -  Final Project}
-
+\title{Automatic Target Detection and Classification: \\
+  Deep Learning on Low Power Platforms}
 
 \author{
   Asst. Prof. Mark Silberstein \\
@@ -26,17 +25,57 @@
 
 \begin{document}
 
-
 \maketitle
 
 \section{Summary}
 
-In this project I demonstarte the use of Deeply-Learnt (DL)
-Neural-Networks (NN) in a `Real-World' task. I.e. the NNs are trained to detect
-and classify targets as part of the AUVSI Students Unmmanned Aerial Vehicle
-competition.
+Over the last decades the use of Unmanned System has proven very beneficial in
+saving life of military personal and cutting the costs of operational tasks.
+Still, these systems require a `Man in the loop'. This requirement increases the price
+of these systems and limits their availability.
+The recent years have seen a leap in machine learning algorithms and available
+computing power. These advances enable computers accomplish tasks
+previously considered possible only by humans.
+This opens the path to Unmanned Autonomous Systems (UAS).
+Many times the UAS are limited by size. On the other hand, the state of the
+art machine learning algorithms require high computing power. These two
+constraints collide with each other.
+The new generation of low power high performance platforms like the NVIDIA
+Jetson TX1, opens the path to new applications for size limited UAS.
+In this research we harness the power of these platforms to develop machine vision
+algorithms for UAS using state of the art Deep Learning techniques. 
 
-\section{Introduction}
+This research is performed in cooperation with the Technion AUVSI project team.
+This project is a collaboration between the Aerospace and Electrical engineering
+faculties, in which students design and build Unmanned Autonomous aerial system
+to compete in the AUVSI students competition.
+
+\section{Background}
+
+\subsection{Deep Learning}
+\label{sec:classical_mv_solution}
+
+Classical machine learning, traditionally approaches classification problems
+by first transforming the data from the problem space to some feature
+space. The data in this feature space is hopefully invariant to transforms common
+in the problem space, e.g. similarity and affine transforms, occlusion, lighting
+etc. It is assumed that in this feature space, objects of the same class reside
+in some manifold and the manifolds of different objects are separated by regions
+of low density. A classifier, e.g. SVM is trained on this feature space to
+discriminate between object of different classes.
+
+This approach has been applied successfully to problems in many fields. But
+finding the right
+feature space for the problem and the right classifier for the feature space is
+a complicated task that requires expertise.
+
+During the last years, Deep Learning (DL) proves to be the De-facto method for
+many artificial intelligence tasks. One of the main advantages of DL is that
+it automatically learns the feature space. Thus the feature space is custom
+tailored for the specific problem.
+
+
+\subsection{AUVSI project}
 
 The Association for Unmanned Vehicle Systems International (AUVSI)
 organizes the Student Unmanned Aerial System (SUAS) competition
@@ -47,31 +86,30 @@ design, fabrication and demonstration of a system capable of completing
 specific autonomous aerial missions.
 
 One of the missions is the automatic detection and classification of targets.
-The targets are constructed of flat plywood of a given
-size, basic geometric shape, and painted a color using flat paint.
-The targets have different geometric shapes (triangles, circles, etc.)
-and background colors; with a different color alphanumeric than the
-background color.  The targets may be any mix of geometric shapes,
-letters and colors. One of the targets is a 
-QR Code target. Fig.~\ref{fig:targets} shows
-some of the targets in this year's competition.
+Some targets are characterized by different geometric shapes and color. Another
+target, in the form of a QR code requires high spatial resolution. Another
+target is a doll in the form and size of a human. This target simulates
+a search and rescue operation.~\cref{fig:targets} shows
+some of the targets used in last year's competition.
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{auvsi_targets}
-    \caption{Example of targets used in the AUVSI competition.}
-    \label{fig:targets}
+	\centering
+	\includegraphics[width=0.8\textwidth]{auvsi_targets}
+	\caption{Example of targets used in the 2015 AUVSI competition.}
+	\label{fig:targets}
 \end{figure}
 
-The qualify for this mission, the system needs to identify three of the five
-characteristics of the target: shape, color, character, character color and orientation.
-In this project I develop and implemented a system of DL NN for the
-task of automatically detecting and classifying the targets shape, character
-and orientation.
+This is the third year that the Technion participates in the AUVSI SUAS
+competition. Last year the Technion team achieved 2\textsuperscript{nd} place
+among more than 30 teams from universities all around the world.
 
-\section{Background}
+\section{Proposed Research}
 
-The task of this system is related to Region Convolutional Neural Networks
-(R-CNN)~\cite{Girshick2014}. R-CNN systems revolutionized the area of object detection, classification, and segmentation. Fig.~\ref{fig:RCNN} show the diagram of a typical
+\subsection{Target Detection and Classification}
+
+The task of target detection and classification is related
+to surveillance, `search and rescue', `friend or foe' identification and many other security related missions. 
+The Region Convolutional Neural Networks
+(R-CNN)~\cite{Girshick2014} revolutionized the area of object detection, classification, and segmentation. Fig.~\ref{fig:RCNN} show the diagram of a typical
 R-CNN system. It is made of two stages, the first is a region proposal stage that extracts
 object candidates. This regions are stretched into a predefined patch size and then
 fed into a CNN. The CNN calculates confidence levels for a set of objects it was trained
@@ -82,80 +120,14 @@ for.
 	\caption{Diagram of a RCNN system}
 	\label{fig:RCNN}
 \end{figure}
- 
-\subsection{AUVSI project}
 
-This is the second year that the Technion participates in the AUVSI SUAS
-competition. Last year the team from CS developed a classical machine learning (ML)
-system, similar to the one described in Sec.~\ref{sec:classical_mv_solution}.
-Our team never managed to get the hands on all the source code of the system
-neither did it work during the competition. Therefore I cannot evaluate it's
-performance. But from this algorithm I borrow the region proposal algorithm:
-Maximally Stable Extremal Regions (MSER)~\cite{Forssen2007}.
-
-The student in charge of the automatic detection and classification this year
-uses the MSER algorithm to find object candidates and then extracts
-the contour of the most salient object in the crop. This contour is compared
-to a library of shape contours. This is an interesting and promising approach.
-But the student is yet to test his algorithm throughly neither did he deliver
-his code. Given this situation I lack a previous system to compare this project to.
-
-\subsection{Classical Machine Learning Approach}
-\label{sec:classical_mv_solution}
-
-Classical machine learning, traditionally approaches classification problems
-by first transforming the data from the space of the problem to some feature
-space. The data in this feature space is hopefully invariant to transforms common
-in the feature space, e.g. similarity and affine transforms, occlusion, lighting
-etc. It is assumed that in this feature space, objects of the same class reside
-in some manifold and the manifolds of different objects are separated by regions
-of low density.
-Then some kind of a classifier, e.g. SVM is trained on this feature space to
-discriminate between object of different classes.
-
-This approach has been applied successfully to problem from many fields. But
-finding the right
-feature space for the problem and the right classifier for the feature space is
-a complicated task that requires expertise.
-
-I tried to implement a system using this approach. As feature space I
-selected the Histogram Of Gradients (HOG)~\cite{1467360}, which was shown to
-be very successful in detection tasks. I trained SVM~\cite{Cortes:1995:SN:218919.218929}
-classifiers on synthetic data (described in Sec.\ref{sec:data_synthesis}). The
-problem I tried to solve (distinguish between target and non-target objects) seemed
-simpler than the problem in hand (classification to different shape classes). Nonetheless
-the best SVM network I manged to train achieved $\le 85\%$ accuracy. A diagram
-of this system is given in Fig.~\ref{fig:classical}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\textwidth]{classical_diagram}
-	\caption{Diagram of a classical machine learning approach.}
-	\label{fig:classical}
-\end{figure}
-
-I also tested the ability of a famous OCR code, tesseract-ocr~\cite{4376991}, to
-classify the characters inside the targets. In my experiments the algorithm failed
-to classify single letters. I assume that tesseract-ocr is trained to analyze complete
-words and sentences and therefore is not fit for this task.
-
-The conclusion of my experiments above is not that traditional ML systems
-are useless. But that it requires high expertise in the field of the problem. This
-project shows empirically that deeplearning network offer a good alternative to this
-situation. 
-
-\section{Proposed Research}
-
-The system is comprised of two subsystems shown in \cref{fig:shape_diagram,fig:letter_diagram}.
+We implemented a system based on R-CNN architecture to detect and classify the
+targets in the AUVSI competition. The system is comprised of two subsystems shown in \cref{fig:shape_diagram,fig:letter_diagram}.
 The first subsystem detects and classifies target shapes in full (downscaled) image. The
-input to this subsystem is a $1000\times750$px image. The original resolution of the
-camera is $4000\times3000$px. The image is down-sampled for two reason, the first is that
-the MSER algorithm is computationally demanding. The second is that the image processing is done
-on the ground station. And the communication bandwidth between the drone and the ground station
-is limited. The output is square crops classified as one of nine possible
-shapes (circle, half circle, cross, rectangle, etc.). The crops are taken from full resolution
+input to this subsystem is a down-sampled version of the original image. The output is square crops classified as one of the possible target shapes (circle, half circle, cross, rectangle, etc.). Crops are taken from the full resolution
 image and are fed into the
 next subsystem that classifies the characters inside the shape. These subsystems
-are described in the following subsections.
+thus work as a cascade of classifiers. This hierarchical coarse to fine setup enables good classification performance using smaller DL networks.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{diagram}
@@ -164,10 +136,44 @@ are described in the following subsections.
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{letter_diagram}
+	\includegraphics[width=0.5\textwidth]{letter_diagram}
 	\caption{Diagram of the character classification subsystem}
 	\label{fig:letter_diagram}
 \end{figure}
+
+\subsection{Low Power Computing}
+
+% Short description of the Jetson TX1
+% Results of Ahmad
+The Jetson TK1,~\cref{fig:jetson}, offers both a general purpose CPU and a powerful GPU
+in a low power, small form factor plaform. The GPU enables fast calculation of DL networks.
+Using the Jetson TK1 and the Caffe~\cite{jia2014caffe} DL network, we
+are developin a low power, real-time target detection and classification system.
+The later enables fast calculation of the DL network.  
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{jetson}
+	\caption{The Jetson TK1 by NVIDIA}
+	\label{fig:jetson}
+\end{figure}
+
+Initial results show that 
+
+\begin{center}
+	\begin{tabular}{ | l | l | }
+		\hline
+		Stage 										& Time [ms] 	\\ \hline
+		Target Detection (CPU) 						& 200      		\\ \hline
+		Low Resolution Classification (GPU) 		& 10 			\\ \hline
+		High Resolution Classification (GPU)		& 10 			\\ \hline
+		Total 						 				& 220 			\\ \hline
+	\end{tabular}
+\end{center}
+
+\subsection{Demonstration system}
+
+% Description of the Ground System
+% Details of Next year Gannt.
 
 \subsection{Shape Classification}
 \label{sec:shape_class}
