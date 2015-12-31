@@ -13,7 +13,7 @@
 
 \author{
   Asst. Prof. Mark Silberstein \\
-  mark@campus.technion.ac.il\\
+  mark@ee.technion.ac.il\\
 }
 
 \newcommand{\fix}{\marginpar{FIX}}
@@ -29,27 +29,59 @@
 
 \section{Summary}
 
-Over the last decades the use of Unmanned System has proven very beneficial in
+Over the last decades the use of Unmanned System (US) has proved very beneficial in
 saving life of military personal and cutting the costs of operational tasks.
-Still, these systems require a `Man in the loop'. This requirement increases the price
-of these systems and limits their availability.
-The recent years have seen a leap in machine learning algorithms and available
-computing power. These advances enable computers accomplish tasks
-previously considered possible only by humans.
-This opens the path to Unmanned Autonomous Systems (UAS).
+However, these systems still require a `Man in the loop' for remote control, scene
+recognition, and data acquisition, 
+thereby increasing the cost of operation and significantly limiting the scope of 
+applications to those in which such a remote control is possible.
 
-Many times these UAS are limited by size, on the other hand, the state of the
-art machine learning algorithms require high computing power. These two
-constraints collide with each other.
-The new generation of low power high performance platforms like the NVIDIA
-Jetson TX1, opens the path to new applications for size limited UAS.
-In this research we harness the power of these platforms to develop machine vision
-algorithms for UAS using state of the art Deep Learning techniques. 
+On the other hand, recent years have seen revolutionary advancements in machine learning
+algorithms. The new class of algorithms, called Deep Neural Networks (DNN), have
+been shown to enable 
+computers accomplish image classification and recognition tasks previously
+considered tractable only by humans. The tremendous potential of these
+algorithms in solving recognition tasks in Unmanned Systems is apparent, as 
+their use may bring real-time human-level vision capabilities and pave the way
+toward fully Unmanned Autonomous Systems (UAS).
+Unfortunately, the typically scarce computing capacity of unmanned systems,
+primarily due to strict weight and size constraints, make the application of the
+existing compute-greedy deep neural network-based algorithms extremely challenging. 
 
-This research is performed in cooperation with the Technion AUVSI project team.
-This project is a collaboration between the Aerospace and Electrical engineering
-faculties, in which students design and build Unmanned Autonomous aerial system
-to compete in the AUVSI students competition.
+This proposal aims to bring the power of deep neural networks to Unmanned
+Systems via three main research thrusts:
+
+\begin{itemize}
+	\item Optimization of the structure of deep neural networks for specific
+		recognition tasks encountered in (US), like object recognition,
+		TODO: ADD MORE 
+\item The design and implementation of the algorithms focusing on power
+	efficiency, by leveraging a new  class of high
+	performance low-power commodity platforms with embedded Graphics
+	Processing Units, like  NVIDIA Jetson TX1.
+\item  TODO: Something else???
+\end{itemize}
+
+TODO: AMIT - explain in 2 sentences how you can optimize the structure of a DNN.
+
+Graphics Processing Units are now routinely used as high-performance
+accelerators in Supercomputing workloads, and in particular, for training deep neural
+network.  In this proposal we seek to take advantage of a novel hybrid CPU-GPU architecture 
+of embedded GPUs to leverage their computing capacity for low-power
+\emph{inference} tasks. Combined with the new generation of low power embedded
+systems like NVIDIA Jetson TX1,  our optimized power-optimized inference holds
+the potential to empower complex classification and recognition tasks on the
+Unmanned System. 
+
+Critically, throughout the intermediate steps of this project as well as its
+final results will be evaluated on a real Unmanned Aerial Vehicle (UAV), in cooperation with the Technion AUVSI project
+team which is a collaboration between the Aerospace and Electrical engineering
+faculties. 
+%in which students design and build Unmanned Autonomous aerial system
+%to compete in the AUVSI students competition.
+
+
+
 
 \section{Background}
 
@@ -113,6 +145,23 @@ competition. Last year the Technion team achieved 2\textsuperscript{nd} place
 among more than 30 teams from universities all around the world.
 
 \section{Proposed Research}
+
+TODO: Amit, there should be a much better separation between the new ideas and
+the preliminary results. Break it into two sections - just like I did in the
+summary. 
+
+For your subsection you basically should explain what you have already
+done, as if you are still not sure if it will work, and explain how it is
+different from the state of the art. And then you add "preliminary results" that
+show that your initial idea was right, but there's still a lot to be done, e.g.,
+improve the structure, remove layers, try other network architcetures, etc..
+
+For the embedded GPU stuff - you can add a bunch of things that you can copy
+from Ahmad's work, where again, try as much as you can to split between "future"
+and now. Also I would add a subseciton which is called "evaluation and
+integration with real systems" and then talk at length about AUVSI. 
+
+
 
 \subsection{Target Detection and Classification}
 
