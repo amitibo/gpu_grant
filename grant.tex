@@ -1,15 +1,23 @@
-\documentclass{article} % For LaTeX2e
+\documentclass[a4paper]{article} % For LaTeX2e
+\usepackage{ucs}   % package to add unicode support
+\usepackage[utf8x]{inputenc}  % adding the UTF-8 encoding
+\usepackage[hebrew,english]{babel}     % Hebrew is primary, English is secondary
 \usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
 \graphicspath{ {images/} }
 \usepackage{nips14submit_e,times}
 \usepackage{hyperref}
 \usepackage{cleveref}
 \usepackage{subcaption}
 \usepackage{url}
-%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 \title{Automatic Target Detection and Classification: \\
-  Deep Learning on Low Power Platforms}
+  Deep Learning on Low Power Platforms \\
+  \begin{otherlanguage}{hebrew}
+    זיהוי וסיווג אוטומטי של מטרות: \\
+    למידה עמוקה על פלטפורמה נמוכת הספק
+  \end{otherlanguage}
+}
 
 \author{
   Asst. Prof. Mark Silberstein \\
@@ -18,7 +26,6 @@
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
-
 \nipsfinalcopy % Uncomment for camera-ready version
 
 \newcommand{\cropsrow}[3]{\includegraphics[width=0.15\textwidth]{images/crops/#1.jpg} & #2 & \includegraphics[width=0.15\textwidth]{images/crops/mask_#1.jpg} & #3}
@@ -52,7 +59,7 @@ Systems via three main research thrusts:
 
 \begin{itemize}
 \item Optimization of the structure of deep neural networks for specific
-	tasks encountered in (US), like target detection, object recognition, 
+	tasks encountered in (US), like target detection, object recognition,
 	mapping, localization and more.
 \item The design and implementation of the algorithms focusing on power
 	efficiency, by leveraging a new  class of high
@@ -131,7 +138,7 @@ One of the missions is the automatic detection and classification of targets.
 Some targets are characterized by different geometric shapes and color. A specific
 target, in the form of a QR code requires high spatial resolution. Another
 target is a doll in the form and size of a human. This target simulates a search
-and rescue operation.~\cref{fig:targets} shows some of the targets used in last
+and rescue operation.~\Cref{fig:targets} shows some of the targets used in last
 year's competition.
 \begin{figure}[h]
 	\centering
@@ -169,7 +176,7 @@ We implemented a system based on the R-CNN architecture to detect and classify
 the targets. In our preliminary system the detection is done using the Maximally
 Stable Extermal Regions (MSER) algorithm~\cite{Forssen2007}. The classification
 is divided in two hierarchical CNNs. The CNNs are shown
-in~\cref{fig:shape_diagram,fig:letter_diagram}.
+in~\cref{fig:shape_diagram} and~\cref{fig:letter_diagram}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{diagram}
@@ -354,5 +361,7 @@ autonomous capabilities to the drone.
 \bibliographystyle{unsrt}
 \end{document}
 
-
-
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
