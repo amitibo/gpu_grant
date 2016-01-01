@@ -1,4 +1,6 @@
 \documentclass{article} % For LaTeX2e
+\usepackage[utf8x]{inputenc}  % adding the UTF-8 encoding
+\usepackage[hebrew,english]{babel}     % Hebrew is primary, English is secondary
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{nips14submit_e,times}
@@ -9,7 +11,12 @@
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
 \title{Automatic Target Detection and Classification: \\
-  Deep Learning on Low Power Platforms}
+  Deep Learning on Low Power Platforms \\
+  \begin{otherlanguage}{hebrew}
+    זיהוי וסיווג אוטומטי של מטרות: \\
+    למידה עמוקה על פלטפורמה נמוכת הספק
+  \end{otherlanguage}
+}
 
 \author{
   Asst. Prof. Mark Silberstein \\
@@ -184,7 +191,7 @@ We implemented a system based on the R-CNN architecture to detect and classify
 the targets. In our preliminary system the detection is done using the Maximally
 Stable Extremal Regions (MSER) algorithm~\cite{Forssen2007}. The classification
 is divided in two hierarchical Convolutional Neural Networks (CNNs). The CNNs are shown
-in~\cref{fig:shape_diagram,fig:letter_diagram}.
+in~\cref{fig:shape_diagram} and~\cref{fig:letter_diagram}.
 
 \begin{figure}[h]
 	\centering
