@@ -38,7 +38,7 @@ such a remote control is possible.
 
 On the other hand, recent years have seen revolutionary advancements in machine
 learning algorithms. The new class of algorithms, called Deep Neural Networks
-(DNN), have been shown to enable computers accomplish image classification and
+(DNN), has been shown to enable computers accomplish image classification and
 recognition tasks previously considered tractable only by humans. The tremendous
 potential of these algorithms in solving recognition tasks in Unmanned Systems
 is apparent, as their use may bring real-time human-level vision capabilities
@@ -48,39 +48,38 @@ strict weight and size constraints, make the application of the existing
 compute-greedy deep neural network-based algorithms extremely challenging.
 
 This proposal aims to bring the power of deep neural networks to Unmanned
-Systems via three main research thrusts:
+Systems via two main research thrusts:
 
 \begin{itemize}
 \item Optimization of the structure of deep neural networks for specific
-	tasks encountered in (US), like target detection, object recognition, 
+	tasks encountered in (US), like target detection, object recognition,
 	mapping, localization and more.
-\item The design and implementation of the algorithms focusing on power
-	efficiency, by leveraging a new  class of high
+\item Optimization of the design and implementation of inference in deep neural
+	networks with the focus on power efficiency. We will leverage a new  class of high
 	performance low-power commodity platforms with embedded Graphics
-	Processing Units, like  NVIDIA Jetson TX1.
-\item Effort to achieve fully autonomous capabilities.
+	Processing Units (GPUs), like  NVIDIA Jetson TX1.
 \end{itemize}
 
-Deep Learning has achieved state of the art results in numerous areas. But in
-the price of considerable computing power. Porting this capabilities to size and
-power limited platforms like UAS requires finding the optimal balance between
-mission requirements and algorithm performance. Thus we will explore different
+Deep neural networks-based systems achieve  state-of-the-art results in numerous
+areas, yet, require considerable computing power. The need to satisfy the size and
+power constraints of UAS requires finding the optimal balance between
+mission requirements and algorithm performance. We will explore different
 deep learning networks and compare them by their latency, throughput and
 accuracy.
 
-Graphics Processing Units are now routinely used as high-performance
-accelerators in Supercomputing workloads, and in particular, for training deep
-neural networks.  In this proposal we seek to take advantage of a novel hybrid
-CPU-GPU architecture of embedded GPUs to leverage their computing capacity for
-low-power \emph{inference} tasks. Combined with the new generation of low power
-embedded systems like NVIDIA Jetson TX1,  our optimized power-optimized
+In this proposal we seek to take advantage of a novel hybrid CPU-GPU architecture of embedded GPUs
+to leverage their computing capacity for low-power \emph{inference} in deep
+neural networks. GPUs are now routinely used as high-performance
+accelerators in supercomputing workloads, and in particular, for training deep
+neural networks. Combined with the new generation of low power
+embedded systems like NVIDIA Jetson TX1,  our work on power-optimized
 inference holds the potential to empower complex classification and recognition
 tasks on the Unmanned System.
 
-Critically, throughout the intermediate steps of this project as well as its
-final results will be evaluated on a real Unmanned Aerial Vehicle (UAV), in
+Critically, throughout the intermediate stages of this project as well as upon
+its completion, the progress will be evaluated on a real Unmanned Aerial Vehicle (UAV), in
 cooperation with the Technion AUVSI project team which is a collaboration
-between the Aerospace and Electrical engineering faculties.
+between the Aerospace and Electrical Engineering departments.
 
 \section{Background}
 
@@ -93,29 +92,31 @@ data in this feature space is hopefully invariant to transforms common in the
 problem space, e.g. similarity and affine transforms, occlusion, lighting etc.
 It is assumed that in this feature space, objects of the same class reside in
 some manifold and the manifolds of different objects are separated by regions of
-low density. A classifier, e.g. SVM is trained on this feature space to
-discriminate between object of different classes.
+low density. A classifier, e.g. SVM, is trained on this feature space to
+discriminate between objects of different classes.
 
 This approach has been applied successfully to problems in many fields. But
 finding the right feature space for the problem and the right classifier for the
 feature space is a complicated task that requires expertise.
 
-During the last years, Deep Learning (DL)~\cite{Bengio2009, LeCun2015} proved to
-be the De-facto method for many artificial intelligence
+In the last years, Deep Neural Networks (DNN)~\cite{Bengio2009, LeCun2015} proved to
+be the best machine learning technique for  many artificial intelligence
 tasks~\cite{hadsell2009learning, eigen2014depth, ross2013learning}. One of the
-main advantages of DL is that it automatically learns the feature space. Thus
+main advantages of DNN is that the automatically learn the feature space. Thus
 the feature space is custom tailored for the specific problem.
 
 \subsection{General-purpose computing on graphics processing units}
 
 General-purpose computing on graphics processing units is the use of a graphics
 processing unit (GPU),to perform computation in applications traditionally
-handled by the central processing unit (CPU). The advantage of a GPU over a CPU
-comes from the fact that it is designed for Single Instruction Multiple Data
-(SIMD) tasks. Therefore it is fit for numerical operations like matrix
-multiplication which lie in the heart of Deep Learning frameworks. The GPU can
-usually speedup the calculation of a DL network by an order of magnitude
-compared to a CPU.
+handled by the central processing unit (CPU). The advantage of GPUs over  CPUs
+comes from the massive hardware parallelism, which enables high throughput and
+unprecedented performance in a variety of parallel tasks, well beyond the
+computer graphics domain. GPUs particular excel at linear algebra tasks like
+matrix product, which lie in the heart of Deep Neural Network training and
+inference. Therefore,  GPUs have been shown extremely effective for speeding up
+DNN training, achieving  up to an order of magnitude  faster execution than the
+CPU.
 
 \subsection{AUVSI project}
 
@@ -165,11 +166,26 @@ calculates confidence levels for a set of objects it was trained for.
 	\label{fig:RCNN}
 \end{figure}
 
+DNNs hold the potential to perform well on this task, and we propose to extend
+existing algorithms in multiple directions. For one, we will explore
+methods for making the classification robust to different light and weather
+conditions. We will also train the network to detect and classify targets among
+cluttered and diverse backgrounds. The key requirement for achieving this level
+of robustness is large training dataset. In collaboration with AUVSI team we
+will collect aerial imagery at different locations and weather conditions. Also, as detailed
+in~\cref{sec:low_power_computing}, most of the computing time is spent in the detection
+stage. Our goal is to achieve Real-Time detection at video frame rate. Therefore we will
+explore methods for performing detection using a DNN~cite{Szegedy2013}.
+For example we will test merging the detection and classification stages into a
+single network~\cite{long2014fully}.
+
+\subsubsection{Preliminary results}
 We implemented a system based on the R-CNN architecture to detect and classify
 the targets. In our preliminary system the detection is done using the Maximally
-Stable Extermal Regions (MSER) algorithm~\cite{Forssen2007}. The classification
-is divided in two hierarchical CNNs. The CNNs are shown
+Stable Extremal Regions (MSER) algorithm~\cite{Forssen2007}. The classification
+is divided in two hierarchical Convolutional Neural Networks (CNNs). The CNNs are shown
 in~\cref{fig:shape_diagram,fig:letter_diagram}.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{diagram}
@@ -182,15 +198,17 @@ in~\cref{fig:shape_diagram,fig:letter_diagram}.
 	\caption{Diagram of the character classification subsystem}
 	\label{fig:letter_diagram}
 \end{figure}
+
 The first CNN detects and classifies target shapes in the full (downscaled)
 image. The input to this CNN is a down-sampled version of the original
 image. The outputs are square regions classified as one of the possible target
 shapes (circle, half circle, cross, rectangle, etc.). These regions are cropped
 from the full resolution image and fed into the next CNN that classifies
 the characters inside the shape. These CNNs thus work as a cascade of
-classifiers. This hierarchical coarse to fine setup enables good classification
-performance using smaller DL networks. \Cref{fig:true_positive2} shows
+classifiers. This hierarchical structure enables good classification
+performance using smaller DNNs. \Cref{fig:true_positive2} shows
 results of automatic detection and classification using this system.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{true_positive_correct_letter2}
@@ -198,29 +216,18 @@ results of automatic detection and classification using this system.
 	\label{fig:true_positive2}
 \end{figure}
 
-Our preliminary results show that the DL network does well for this task. Our
-system can be extended in multiple directions. For one, we will explore
-methods for making the classification robust to different light and weather
-conditions. We will also train the network to detect and classify targets among
-cluttered and diverse backgrounds. The key requirement for achieving this level
-of robustness is large training dataset. We will perform flights to collect
-aerial imagery at different locations and weather conditions. Also, as detailed
-in~\cref{sec:low_power_computing}, most of computing time is spent in the detection
-stage. Our goal is Real Time detection at video frame rate. Therefore we will
-explore methods for performing detection using a DL network~cite{Szegedy2013}.
-For example we will test merging the detection and classification stages into a
-single network~\cite{long2014fully}.
 
 \subsection{Low Power Computing}
 \label{sec:low_power_computing}
 
-The Jetson TK1,~\cref{fig:jetson}, and its predecessor, the Jetson
-TX1~\cite{jetsontk}, offer both a general purpose CPU and a powerful GPU in a
+The Jetson TX1,~\cref{fig:jetson}, and its predecessor, the Jetson
+TK1~\cite{jetsontk}, offer both a general purpose CPU and a powerful GPU in a
 low power ($<10[\textrm{W}]$), small form factor platform
-($10\textrm{x}10[\textrm{cm}]$). The GPU enables fast calculation of DL
-networks. Using the Jetson TK1 and the Caffe~\cite{jia2014caffe} DL network, we
-are developing a low power, real-time target detection and classification
+($10\textrm{x}10[\textrm{cm}]$). The GPU enables fast inference in Deep
+Learning Networks. Using the Jetson TX1 and the Caffe~\cite{jia2014caffe} DNN
+development network, we propose to  develop a low power, real-time target detection and classification
 system.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{jetson}
@@ -228,10 +235,11 @@ system.
 	\label{fig:jetson}
 \end{figure}
 
+\subsubsection{Preliminary results}
 Initial results of running the target detection and classification algorithm on
-the Jetson are shown in~\cref{tb:jetson1}. It can be seen that even at this
-stage the system can handle images at up to 4 frames per second. This should be
-enough for many applications.
+the older Jetson platform are shown in~\cref{tb:jetson1}. It can be seen that even at this
+stage the system can handle images at up to 4 frames per second, yet this frame
+rate is too slow.
 \begin{table}
 	\centering
 	\begin{tabular}{ | l | l | }
@@ -246,8 +254,8 @@ enough for many applications.
 	\label{tb:jetson1}
 \end{table}
 
-To explore network optimization strategies we run a computationally demanding DL
-network called `AlexNet' on the Jetson TK1. Results of profiling the
+To explore network optimization strategies we run a computationally demanding
+DNN called `AlexNet' on the Jetson TK1. Results of profiling the
 `AlexNet'~\cref{fig:alex_time} show that more than $35\%$ of the classification
 time is spent in one of the network layers (`FC6'). \Cref{tb:alexnet} details
 the improvement in classification time VS Accuracy hit for different
@@ -258,8 +266,8 @@ modifications to the network architecture.
 	\caption{Profiling of the AlexNet DL network}
 	\label{fig:alex_time}
 \end{figure}
-Our preliminary results show that it is possible to decrease the size of a DL
-network while maintaining an acceptable accuracy.
+Our preliminary results show that it is possible to decrease the size of the
+network  while maintaining an acceptable accuracy.
 \begin{table}
 	\centering
 	\begin{tabular}{ | l | l | l | l | }
@@ -273,9 +281,10 @@ network while maintaining an acceptable accuracy.
 	\caption{Timing results on the Jetson TK1}
 	\label{tb:alexnet}
 \end{table}
-Further improvements can be achieved by optimizing the code of the DL framework
+
+Further improvements can be achieved by optimizing the code of the DNN framework
 in use. In our tests we were able to reduce the classification time by $15\%$ by
-`hacking' the code of the DL framework we are using~\cite{jia2014caffe}.
+optimizing the code of the CAFE framework we use~\cite{jia2014caffe}.
 
 As can be seen in table~\cref{tb:jetson1}, the target detection stage is by far
 the most time consuming. We will explore methods for optimizing the performance
@@ -310,7 +319,7 @@ the above in a detailed and concise report.
 	\caption{Timeline of the 2016 Technion Drone project.}
 	\label{fig:drone}
 \end{figure}
-The Highlight of this challenging,
+The highlight of this challenging,
 multidisciplinary project is the participation in the leading and most
 prestigious students competition (which includes leading Universities from around
 the World), which takes place in the USA. Last year (2015) the Technion team
@@ -321,12 +330,12 @@ including the UVID-International conference on Unmanned Vehicles which is
 organized by `ISRAEL DEFENSE MAGAZINE'. The project won a special Academic Prize
 for outstanding academic achievements.
 
-This year, a Jetson mini computer will be deployed on-board the drone as part of
-its payload. It will process images captured by the payload camera in Real-Time.
-Among its tasks will be the automatic detection and classification of targets
+This year, a Jetson TX1 mini computer will be deployed on-board the drone as part of
+its payload. It will process images captured by the payload camera in real time.
+Among its tasks will be  automatic detection and classification of targets
 and the detection of humans. As the project evolves, more tasks will be
-transfered from the ground station to the Jetson, e.g. Localization an
-/.Mapping~\cite{Nardi2014}, Obstacle Avoidance~\cite{Michels2005} allowing
+transfered from the ground station to the drone , e.g. Localization and Mapping~\cite{Nardi2014},
+Obstacle Avoidance~\cite{Michels2005} allowing
 autonomous capabilities to the drone.
 
 \section{Budget Plan}
@@ -349,6 +358,15 @@ autonomous capabilities to the drone.
 \end{center}
 
 \section{Mark Siberstein - Short Biography}
+Mark Silberstein is an assistant professor at the Technion Electrical
+Engineering Department, where he heads the Accelerated Computing Systems
+Laboratory.  Mark is an internationally recognized expert in GPU computing, accelerated computing systems,
+Operating Systems and high performance computing.  Mark's work has been published in more than
+20 prestigious international conferences and journals, and has been cited in
+over 600 academic papers. Recently Mark has taught a graduate course on the
+design and implementation of  neural networks, and currently supervises three
+undergraduate projects and graduate research  on power efficient inference and distributed
+training of DNNs.
 
 \bibliography{project}
 \bibliographystyle{unsrt}
@@ -356,3 +374,8 @@ autonomous capabilities to the drone.
 
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
